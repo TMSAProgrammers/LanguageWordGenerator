@@ -26,9 +26,9 @@ public class Main {
 
 
         //Pause to allow user to view results before exiting
+        System.out.println("\nPress ENTER to close");
         inputScanner.nextLine(); //Does nothing, throw-away
         inputScanner.close();
-        System.out.println("Exiting...");
     }
 
 }

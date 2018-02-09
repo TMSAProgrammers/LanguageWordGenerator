@@ -58,14 +58,25 @@ public class Frequency {
     public Object chooseRandomItem() {
         double position = ThreadLocalRandom.current().nextDouble(total);
 
+        //The last freq/item closest to the position
         int lastDuoPos = 0;
+        //The latest freq - position value
         double lastDist = Double.POSITIVE_INFINITY;
+        //Current 'position' in the percentage total
+        double curPercPos = 0.0;
+
         for (int i = 0; i < items.length; i++) {
-            double curDist = freqs[i] - position;
+            //Distance between a position and frequency map pos
+            double curDist = Math.abs((freqs[i] + curPercPos) - position);
+
+            //Adding as the return result
             if (curDist < lastDist) {
                 lastDist = curDist;
                 lastDuoPos = i;
             }
+
+            //Add the current percentage position
+            curPercPos += freqs[i];
         }
 
         return items[lastDuoPos];

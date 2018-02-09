@@ -1,27 +1,27 @@
 package com.company;
 
-public class CustomLanguageGenerator extends LanguageGenerator {
-	
-	public CustomLanguageGenerator() {
+class CustomLanguageGenerator extends LanguageGenerator {
+
+     CustomLanguageGenerator() {
 
 
 	    //Data Arrays
 
 
-        String[] consonantsA = new String[] {"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "qu", "r", "s", "t", "v", "z", "w"};
+        String[] consonantsA = new String[] {"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "qu", "r", "s", "t", "v", "z", "w", "ş", "ç"};
         String[] vowelsA = new String[] {"a", "e", "i", "o", "u"};
-        String[] wordStartFav = new String[] {"w", "t", "k", "i"};
-        String[] wordEndFav = new String[] {"u", "i", "e", "o", "a"};
-        forbiddenSequences = new String[] {};
+        String[] wordStartFav = new String[] {"ş", "g", "p", "e"};
+        String[] wordEndFav = new String[] {"ur", "m", "r", "d"};
+        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy"};
 
-        wordLengthDistribution = new int[] {2, 3, 4, 4, 5, 5, 5, 6, 7};
-        vowelFrequencyDistribution = new double[] {0.33, 0.55, 0.66, 0.55, 0.33};
+        wordLengthDistribution = new int[] {2, 3, 4, 5, 5, 5, 6, 6, 7};
+        vowelFrequencyDistribution = new double[] {0.27, 0.33, 0.33, 0.39, 0.45};
 
 
         //Preference chances (0 to 1 chance)
 
 
-        firstPreferChance = 0.7; //Chance for start pref to be chosen
+        firstPreferChance = 1; //Chance for start pref to be chosen
         lastPreferChance = 0.9; //Chance for end pref to be chosen
 
 

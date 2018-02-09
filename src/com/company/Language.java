@@ -41,7 +41,7 @@ public class Language {
 	public String generateWord() {
 		//Stores a random value between minLen (inclusive) and maxLen (inclusive)
         int wordLength = getWeightedRandom(lengthDistribution);
-		
+
 		//Calculates and stores the frequency of vowels of this word
 		double vowelFrequency = getWeightedRandom(vowelDistribution);
 		//Calculates total vowels in the word
@@ -49,7 +49,7 @@ public class Language {
 		vowelCount = Math.max(1, vowelCount); //Atleast one vowel in every word
 
         //Make "word" structure
-        String[] generatedWord = new String[wordLength - 1];
+        String[] generatedWord = new String[wordLength];
 
 		//Fill with constants
 		constantFill(generatedWord);
@@ -68,6 +68,7 @@ public class Language {
 			generatedWordStr = generateWord();
 		}
 
+		System.out.print(wordLength + " ");
 		return generatedWordStr;
 	}
 
@@ -108,6 +109,8 @@ public class Language {
 
     //Chance to change first and last letters to the preferences
 	private void preferenceFill(String[] word) {
+	    //TODO : implement checks for vowels when making preferencations
+
         //Preference check for first word preference
         if (ThreadLocalRandom.current().nextDouble() <= firstPreferChance) {
             word[0] = (String) startFavorabilities.chooseRandomItem();
