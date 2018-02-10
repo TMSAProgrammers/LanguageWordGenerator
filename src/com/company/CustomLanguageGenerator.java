@@ -8,20 +8,20 @@ class CustomLanguageGenerator extends LanguageGenerator {
 	    //Data Arrays
 
 
-        String[] consonantsA = new String[] {"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "qu", "r", "s", "t", "v", "z", "w", "ş", "ç"};
+        String[] consonantsA = new String[] {"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "r", "t", "v", "z", "w", "ş", "ç"};
         String[] vowelsA = new String[] {"a", "e", "i", "o", "u"};
-        String[] wordStartFav = new String[] {"ş", "g", "p", "e"};
-        String[] wordEndFav = new String[] {"ur", "m", "r", "d"};
-        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy"};
+        String[] wordStartFav = new String[] {"ş", "c", "k"};
+        String[] wordEndFav = new String[] {"ur", "l", "n", "r", "d"};
+        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "şş", "çç", "gj", "gb", "pz", "kp"};
 
-        wordLengthDistribution = new int[] {2, 3, 4, 5, 5, 5, 6, 6, 7};
-        vowelFrequencyDistribution = new double[] {0.27, 0.33, 0.33, 0.39, 0.45};
+        wordLengthDistribution = new int[] {2, 3, 4, 4, 5, 5, 5, 5, 6, 6, 7, 8, 9, 10};
+        vowelFrequencyDistribution = new double[] {0.3, 0.33, 0.44, 0.44, 0.44, 0.55};
 
 
         //Preference chances (0 to 1 chance)
 
 
-        firstPreferChance = 1; //Chance for start pref to be chosen
+        firstPreferChance = 0.9; //Chance for start pref to be chosen
         lastPreferChance = 0.9; //Chance for end pref to be chosen
 
 
@@ -29,12 +29,12 @@ class CustomLanguageGenerator extends LanguageGenerator {
 
 
 	    //Consonants
-		constants = new Frequency(consonantsA);
+		constants = new Frequency(consonantsA, true);
 		//Vowels
-		vowels = new Frequency(vowelsA);
+		vowels = new Frequency(vowelsA, true);
         //Starting Letter Favorabilities
-        wordStartFavorabilities = new Frequency(wordStartFav);
+        wordStartFavorabilities = new Frequency(wordStartFav, true);
         //Ending Letter Favorabilities
-        wordEndFavorabilities = new Frequency(wordEndFav);
+        wordEndFavorabilities = new Frequency(wordEndFav, true);
 	}
 }

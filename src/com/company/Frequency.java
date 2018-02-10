@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Frequency {
     private final double total;
-    private boolean shiftOnResize = false;
+    private boolean shiftOnResize;
 
     private Object[] items;
     private double[] freqs;
@@ -23,19 +23,24 @@ public class Frequency {
     public void setFreq(int pos, double value) {
         //Adjust the other frequencies based on how much this frequency was added to or dropped
         if (shiftOnResize) {
-            double shft = value - freqs[pos]; //Difference
+            double shft = freqs[pos] - value; //Difference
             shft /= items.length - 1; //Divide equally among all
 
             //Apply shift
             for (int i = 0; i < items.length; i++) {
                 if (i != pos) {
-                    freqs[pos] += shft;
+                    freqs[i] += shft;
                 }
             }
         }
 
         //Update the desired freqs value
         freqs[pos] = value;
+    }
+
+    //Frequency adder
+    public void addFreqs(int pos, double value) {
+        this.setFreq(pos, Math.min(freqs[pos] + value, total));
     }
 
     //Constructor
@@ -52,34 +57,31 @@ public class Frequency {
         //Fill frequencies
         unit = total / items.length;
         freqsDefault();
+
+        shiftOnResize = false;
+    }
+
+    public Frequency(Object[] itemIn, boolean doShift) {
+        this(itemIn);
+        shiftOnResize = doShift;
     }
 
     //Main payload method
     public Object chooseRandomItem() {
         double position = ThreadLocalRandom.current().nextDouble(total);
 
-        //The last freq/item closest to the position
-        int lastDuoPos = 0;
-        //The latest freq - position value
-        double lastDist = Double.POSITIVE_INFINITY;
         //Current 'position' in the percentage total
         double curPercPos = 0.0;
 
         for (int i = 0; i < items.length; i++) {
-            //Distance between a position and frequency map pos
-            double curDist = Math.abs((freqs[i] + curPercPos) - position);
-
-            //Adding as the return result
-            if (curDist < lastDist) {
-                lastDist = curDist;
-                lastDuoPos = i;
-            }
-
-            //Add the current percentage position
             curPercPos += freqs[i];
+
+            if (position < curPercPos) {
+                return items[i];
+            }
         }
 
-        return items[lastDuoPos];
+        return "error";
     }
 
     public boolean verifyTotal() {

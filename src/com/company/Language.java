@@ -1,10 +1,11 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Language {
     //Fields
-	private Frequency constants;
+	public Frequency constants;
 	private Frequency vowels;
 	
 	private Frequency startFavorabilities;
@@ -53,22 +54,21 @@ public class Language {
 
 		//Fill with constants
 		constantFill(generatedWord);
-		
-		//Fill with vowels
-		vowelFill(generatedWord, vowelCount);
 
 		//Preference update
-        preferenceFill(generatedWord);
+		preferenceFill(generatedWord);
+
+		//Fill with vowels
+		vowelFill(generatedWord, vowelCount);
 
 		//Convert to a real string
         String generatedWordStr = String.join("", generatedWord);
 
 		//Final check if the word is appropriate in this language
-		if (isForbidden(generatedWordStr)) {
+		if (isForbidden(generatedWordStr, generatedWord)) {
 			generatedWordStr = generateWord();
 		}
 
-		System.out.print(wordLength + " ");
 		return generatedWordStr;
 	}
 
@@ -88,11 +88,20 @@ public class Language {
 	
 	//Adds random vowels to random positions in the string array
 	private void vowelFill(String[] word, int vowelNumber) {
-		int position;
+		int position; //Possible word placements
+		int ending = Math.max(2, word.length - 1); //Ending position to place a word
+		int tries; //Tries taken for one vowel placement
+
 		for (int i = 0; i < vowelNumber; i++) {
+			tries = 0;
 			do {
 			    //Randomize the position
-				position = ThreadLocalRandom.current().nextInt(word.length);
+				position = ThreadLocalRandom.current().nextInt(1, ending);
+
+				// Exit after a ridiculous amount of tries
+				if (++tries > 1000) {
+					break;
+				}
 			}
 			//Continue while position is occupied by a vowel
 			while (arrayContains(
@@ -124,12 +133,27 @@ public class Language {
 
 
     //Returns if the string contains any forbidden sequences or not
-    private boolean isForbidden(String toAnalyzeString) {
-        for (String forbiddenSeq : forbiddenSequences) {
+    private boolean isForbidden(String toAnalyzeString, String[] toAnalyzeStrA) {
+        //Forbidden sequence check
+		for (String forbiddenSeq : forbiddenSequences) {
             if (toAnalyzeString.contains(forbiddenSeq)) {
                 return true;
             }
         }
+
+        //No triple consonant check
+		String[] consonantA = (String[]) constants.getItems();
+
+		for (int i = 0; i < toAnalyzeStrA.length - 2; i++) {
+			int inConsPos = Arrays.binarySearch(consonantA, toAnalyzeStrA[i]);
+			int inConsPos2 = Arrays.binarySearch(consonantA, toAnalyzeStrA[i + 1]);
+			int inConsPos3 = Arrays.binarySearch(consonantA, toAnalyzeStrA[i + 2]);
+
+			if (inConsPos >= 0 && inConsPos2 >= 0 && inConsPos3 >= 0) {
+				return true;
+			}
+		}
+
         return false;
     }
 

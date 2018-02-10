@@ -9,23 +9,30 @@ public class GUIHandler extends JFrame implements ActionListener {
     //Fields
     String mainOutput;
 
-    //Freqency maps
-    Frequency consonants;
-    Frequency vowels;
-    Frequency wordStarts;
-    Frequency wordEnds;
-    Frequency forbiddens;
-
+    //Direct access to a language generator
+    LanguageGenerator languageSettings;
 
     //Constructor
-    public GUIHandler() {
+    public GUIHandler(LanguageGenerator langSettings) {
         initializeWindow();
+
+        languageSettings = langSettings;
     }
 
     private void initializeWindow() {
         setTitle("Language Word Generator");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    private void generateComponents(Frequency group) {
+        String[] captions = (String[]) group.getItems();
+        double[] freqs = group.getFrequencies();
+        for (int i = 0; i < captions.length; i++) {
+            JTextField freqControl = new JTextField();
+            freqControl.setName(captions[i]);
+            freqControl.setText(String.valueOf(freqs[i]));
+        }
     }
 
     @Override
