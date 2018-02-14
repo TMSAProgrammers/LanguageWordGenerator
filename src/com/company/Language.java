@@ -145,11 +145,11 @@ public class Language {
 		String[] consonantA = (String[]) constants.getItems();
 
 		for (int i = 0; i < toAnalyzeStrA.length - 2; i++) {
-			int inConsPos = Arrays.binarySearch(consonantA, toAnalyzeStrA[i]);
-			int inConsPos2 = Arrays.binarySearch(consonantA, toAnalyzeStrA[i + 1]);
-			int inConsPos3 = Arrays.binarySearch(consonantA, toAnalyzeStrA[i + 2]);
+			boolean inConsPos = arrayContains(consonantA, toAnalyzeStrA[i]);
+			boolean inConsPos2 = arrayContains(consonantA, toAnalyzeStrA[i + 1]);
+			boolean inConsPos3 = arrayContains(consonantA, toAnalyzeStrA[i + 2]);
 
-			if (inConsPos >= 0 && inConsPos2 >= 0 && inConsPos3 >= 0) {
+			if (inConsPos && inConsPos2 && inConsPos3) {
 				return true;
 			}
 		}
