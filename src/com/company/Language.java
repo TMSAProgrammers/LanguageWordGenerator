@@ -5,11 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Language {
     //Fields
-	public Frequency constants;
-	private Frequency vowels;
+	public WeightedLists constants;
+	private WeightedLists vowels;
 	
-	private Frequency startFavorabilities;
-	private Frequency endFavorabilities;
+	private WeightedLists startFavorabilities;
+	private WeightedLists endFavorabilities;
 	
 	private String[] forbiddenSequences;
 	

@@ -4,11 +4,11 @@ abstract class LanguageGenerator {
 	
 	//Class definition
 
-	public Frequency constants;
-	public Frequency vowels;
+	public WeightedLists constants;
+	public WeightedLists vowels;
 
-    public Frequency wordStartFavorabilities;
-    public Frequency wordEndFavorabilities;
+    public WeightedLists wordStartFavorabilities;
+    public WeightedLists wordEndFavorabilities;
 
     public int[] wordLengthDistribution;
     public double[] vowelFrequencyDistribution;

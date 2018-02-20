@@ -29,12 +29,12 @@ class CustomLanguageGenerator extends LanguageGenerator {
 
 
 	    //Consonants
-		constants = new Frequency(consonantsA, true);
+		constants = new SortedFrequency(consonantsA, 25);
 		//Vowels
-		vowels = new Frequency(vowelsA, true);
+		vowels = new SortedFrequency(vowelsA, 25);
         //Starting Letter Favorabilities
-        wordStartFavorabilities = new Frequency(wordStartFav, true);
+        wordStartFavorabilities = new SortedFrequency(wordStartFav, 25);
         //Ending Letter Favorabilities
-        wordEndFavorabilities = new Frequency(wordEndFav, true);
+        wordEndFavorabilities = new SortedFrequency(wordEndFav, 25);
 	}
 }
