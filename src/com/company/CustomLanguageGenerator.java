@@ -9,15 +9,14 @@ class CustomLanguageGenerator extends LanguageGenerator {
 
      CustomLanguageGenerator() {
 
-
 	    //Data Arrays
 
 
         String[] consonantsA = new String[] {"n", "g", "k", "l", "ş", "v", "d", "r", "m", "h", "w", "ç", "b", "z", "f", "j", "p"};
-        String[] vowelsA = new String[] {"a", "i", "e", "u", "o"};
+        String[] vowelsA = new String[] {"a", "i", "e", "u", "o", "y"};
         String[] wordStartFav = new String[] {"d", "k", "j", "i", "t", "v", "ş", "e", "b", "c", "l", "f"};
         String[] wordEndFav = new String[] {"n", "k", "t", "r", "c", "m", "a", "d"};
-        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "şş", "çç", "gj", "gb", "pz", "kp", "kg", "gk", "dg", "gd", "dk", "kd"};
+        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "şş", "çç", "gj", "gb", "pz", "kp", "kg", "gk", "dg", "gd", "dk", "kd", "dp"};
 
         String[] verbEndingsA = new String[] {"am", "ur", "ez"};
 
@@ -65,7 +64,6 @@ class CustomLanguageGenerator extends LanguageGenerator {
                  } while (word[i] == word[i - 1]);
              }
          }
-
          //Last character avoidance pass
          if (word.length > 2 &&
                  Language.arrayContains(consonantArray, word[word.length - 1]) &&
@@ -76,6 +74,7 @@ class CustomLanguageGenerator extends LanguageGenerator {
              } while (word[word.length - 2] == word[word.length - 1]);
 
          }
+
 
          //Chance to make a verb
          if (word.length > 2 && ThreadLocalRandom.current().nextInt(100) < chanceForVerb) {

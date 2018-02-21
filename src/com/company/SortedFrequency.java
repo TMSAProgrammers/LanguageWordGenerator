@@ -24,12 +24,12 @@ public class SortedFrequency extends Frequency {
 
     //Payload method for SortedFrequency
     public Object chooseRandomItem() {
-        for (Object item : items) {
-            if (ThreadLocalRandom.current().nextInt(100) < selectChance) {
-                return item;
+        while (true) {
+            for (Object item : items) {
+                if (ThreadLocalRandom.current().nextInt(100) < selectChance) {
+                    return item;
+                }
             }
         }
-
-        return items[items.length - 1]; //Return last letter for default
     }
 }
