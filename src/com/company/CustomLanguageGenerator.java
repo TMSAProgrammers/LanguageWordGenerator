@@ -20,7 +20,7 @@ class CustomLanguageGenerator extends LanguageGenerator {
 
         String[] verbEndingsA = new String[] {"am", "ur", "ez"};
 
-        wordLengthDistribution = new int[] {2, 3, 3, 3, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 9, 10};
+        wordLengthDistribution = new int[] {2, 3, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9};
         vowelFrequencyDistribution = new double[] {0.33, 0.44, 0.44, 0.44, 0.55, 0.55};
 
 
@@ -42,7 +42,7 @@ class CustomLanguageGenerator extends LanguageGenerator {
 		//Vowels
 		vowels = new SortedFrequency(vowelsA, 25);
         //Starting Letter Favorabilities
-        wordStartFavorabilities = new SortedFrequency(wordStartFav, 50);
+        wordStartFavorabilities = new SortedFrequency(wordStartFav, 25);
         //Ending Letter Favorabilities
         wordEndFavorabilities = new SortedFrequency(wordEndFav, 50);
         //Verb endings
