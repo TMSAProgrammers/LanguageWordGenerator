@@ -1,6 +1,11 @@
 package com.company;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 class CustomLanguageGenerator extends LanguageGenerator {
+
+     private int chanceForVerb;
+     private Frequency verbEndings;
 
      CustomLanguageGenerator() {
 
@@ -12,9 +17,11 @@ class CustomLanguageGenerator extends LanguageGenerator {
         String[] vowelsA = new String[] {"a", "i", "e", "u", "o"};
         String[] wordStartFav = new String[] {"d", "k", "j", "i", "t", "v", "ş", "e", "b", "c", "l", "f"};
         String[] wordEndFav = new String[] {"n", "k", "t", "r", "c", "m", "a", "d"};
-        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "şş", "çç", "gj", "gb", "pz", "kp", "kg", "gk"};
+        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "şş", "çç", "gj", "gb", "pz", "kp", "kg", "gk", "dg", "gd", "dk", "kd"};
 
-        wordLengthDistribution = new int[] {2, 3, 3, 3, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 9, 10,};
+        String[] verbEndingsA = new String[] {"am", "ur", "ez"};
+
+        wordLengthDistribution = new int[] {2, 3, 3, 3, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 9, 10};
         vowelFrequencyDistribution = new double[] {0.33, 0.44, 0.44, 0.44, 0.55, 0.55};
 
 
@@ -25,18 +32,24 @@ class CustomLanguageGenerator extends LanguageGenerator {
         lastPreferChance = 0.9; //Chance for end pref to be chosen
 
 
+        chanceForVerb = 15; //Chance for the ending to be verb-like
+
+
         //Frequency objects (Uses above data, not customizable)
 
 
 	    //Consonants
-		constants = new SortedFrequency(consonantsA, 20);
+		constants = new SortedFrequency(consonantsA, 10);
 		//Vowels
-		vowels = new SortedFrequency(vowelsA, 50);
+		vowels = new SortedFrequency(vowelsA, 25);
         //Starting Letter Favorabilities
         wordStartFavorabilities = new SortedFrequency(wordStartFav, 50);
         //Ending Letter Favorabilities
         wordEndFavorabilities = new SortedFrequency(wordEndFav, 50);
+        //Verb endings
+        verbEndings = new Frequency(verbEndingsA);
 	}
+
 
 	@Override
     public void postProcessWord(String[] word) {
@@ -64,5 +77,9 @@ class CustomLanguageGenerator extends LanguageGenerator {
 
          }
 
+         //Chance to make a verb
+         if (word.length > 2 && ThreadLocalRandom.current().nextInt(100) < chanceForVerb) {
+             word[word.length - 1] = (String) verbEndings.chooseRandomItem();
+         }
     }
 }
