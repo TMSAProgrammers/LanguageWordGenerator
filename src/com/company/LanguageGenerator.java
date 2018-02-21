@@ -19,6 +19,11 @@ abstract class LanguageGenerator {
 	public double lastPreferChance;
 
 
+	//Special language features
+    public void postProcessWord(String[] word) { }
+
+
+
 	/*protected static double[] generateDistribution(double center, int resolution) {
 		//Error checking
 		if (resolution % 2 == 0) {

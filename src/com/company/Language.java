@@ -1,11 +1,12 @@
 package com.company;
 
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Language {
     //Fields
-	public WeightedLists constants;
+    private LanguageGenerator languageTemplate;
+
+	private WeightedLists constants;
 	private WeightedLists vowels;
 	
 	private WeightedLists startFavorabilities;
@@ -23,6 +24,8 @@ public class Language {
 	
 	//Constructor
 	public Language(LanguageGenerator langGen) {
+	    this.languageTemplate = langGen;
+
 		this.constants = langGen.constants;
 		this.vowels = langGen.vowels;
 		
@@ -61,15 +64,18 @@ public class Language {
 		//Fill with vowels
 		vowelFill(generatedWord, vowelCount);
 
-		//Convert to a real string
-        String generatedWordStr = String.join("", generatedWord);
-
-		//Final check if the word is appropriate in this language
-		if (isForbidden(generatedWordStr, generatedWord)) {
-			generatedWordStr = generateWord();
+		//Final check if the word is appropriate in this language (recursive)
+		if (isForbidden(generatedWord)) {
+			return generateWord();
 		}
 
-		return generatedWordStr;
+        //Apply special language-specific post processing to the word
+        languageTemplate.postProcessWord(generatedWord);
+
+        //Convert to a real string
+        String generatedWordStr = String.join("", generatedWord);
+
+        return generatedWordStr;
 	}
 
 
@@ -118,8 +124,6 @@ public class Language {
 
     //Chance to change first and last letters to the preferences
 	private void preferenceFill(String[] word) {
-	    //TODO : implement checks for vowels when making preferencations
-
         //Preference check for first word preference
         if (ThreadLocalRandom.current().nextDouble() <= firstPreferChance) {
             word[0] = (String) startFavorabilities.chooseRandomItem();
@@ -133,7 +137,10 @@ public class Language {
 
 
     //Returns if the string contains any forbidden sequences or not
-    private boolean isForbidden(String toAnalyzeString, String[] toAnalyzeStrA) {
+    private boolean isForbidden(String[] toAnalyzeStrA) {
+        //Convert to a real string for sequence check
+        String toAnalyzeString = String.join("", toAnalyzeStrA);
+
         //Forbidden sequence check
 		for (String forbiddenSeq : forbiddenSequences) {
             if (toAnalyzeString.contains(forbiddenSeq)) {
@@ -144,7 +151,7 @@ public class Language {
         //No triple consonant check
 		String[] consonantA = (String[]) constants.getItems();
 
-		for (int i = 0; i < toAnalyzeStrA.length - 2; i++) {
+        for (int i = 0; i < toAnalyzeStrA.length - 2; i++) {
 			boolean inConsPos = arrayContains(consonantA, toAnalyzeStrA[i]);
 			boolean inConsPos2 = arrayContains(consonantA, toAnalyzeStrA[i + 1]);
 			boolean inConsPos3 = arrayContains(consonantA, toAnalyzeStrA[i + 2]);
@@ -181,7 +188,7 @@ public class Language {
     }
 
 	//Checks if an array contains a value
-	private boolean arrayContains(String[] array, String value) {
+	public static boolean arrayContains(String[] array, String value) {
 		for (String valIndx : array) {
 			if (valIndx.equals(value)) {
 				return true;

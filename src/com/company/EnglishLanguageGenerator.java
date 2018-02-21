@@ -3,8 +3,6 @@ package com.company;
 public class EnglishLanguageGenerator extends LanguageGenerator {
 	
 	public EnglishLanguageGenerator() {
-
-
         //Data Arrays
 
 
