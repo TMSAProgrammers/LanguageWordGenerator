@@ -3,7 +3,7 @@ package com.company;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SortedFrequency extends Frequency {
-    private int selectChance;
+    private final int selectChance;
 
     //Constructors
 
