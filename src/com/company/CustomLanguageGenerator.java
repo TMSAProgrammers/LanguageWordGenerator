@@ -28,7 +28,7 @@ class CustomLanguageGenerator extends LanguageGenerator {
 
 
         firstPreferChance = 0.9; //Chance for start pref to be chosen
-        lastPreferChance = 0.9; //Chance for end pref to be chosen
+        lastPreferChance = 0.8; //Chance for end pref to be chosen
 
 
         chanceForVerb = 15; //Chance for the ending to be verb-like
@@ -38,13 +38,13 @@ class CustomLanguageGenerator extends LanguageGenerator {
 
 
 	    //Consonants
-		constants = new SortedFrequency(consonantsA, 10);
+		constants = new SortedFrequency(consonantsA, 5);
 		//Vowels
 		vowels = new SortedFrequency(vowelsA, 20);
         //Starting Letter Favorabilities
-        wordStartFavorabilities = new SortedFrequency(wordStartFav, 25);
+        wordStartFavorabilities = new SortedFrequency(wordStartFav, 20);
         //Ending Letter Favorabilities
-        wordEndFavorabilities = new SortedFrequency(wordEndFav, 50);
+        wordEndFavorabilities = new SortedFrequency(wordEndFav, 15);
         //Verb endings
         verbEndings = new Frequency(verbEndingsA);
 	}
