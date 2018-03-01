@@ -20,7 +20,7 @@ abstract class LanguageGenerator {
 
 
 	//Special language features
-    public void postProcessWord(String[] word) { }
+    abstract public void postProcessWord(String[] word);
 
 
 

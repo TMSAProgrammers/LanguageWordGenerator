@@ -64,7 +64,7 @@ public class Frequency extends WeightedLists {
     }
 
     //Frequency setter
-    public void setFreq(int pos, double value) {
+    void setFreq(int pos, double value) {
         //Adjust the other frequencies based on how much this frequency was added to or dropped
         if (shiftOnResize) {
             double shft = freqs[pos] - value; //Difference

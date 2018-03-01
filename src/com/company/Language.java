@@ -23,7 +23,7 @@ public class Language {
 	
 	
 	//Constructor
-	public Language(LanguageGenerator langGen) {
+	Language(LanguageGenerator langGen) {
 	    this.languageTemplate = langGen;
 
 		this.constants = langGen.constants;
@@ -72,10 +72,8 @@ public class Language {
         //Apply special language-specific post processing to the word
         languageTemplate.postProcessWord(generatedWord);
 
-        //Convert to a real string
-        String generatedWordStr = String.join("", generatedWord);
-
-        return generatedWordStr;
+		//Convert to a full string and return
+        return String.join("", generatedWord);
 	}
 
 

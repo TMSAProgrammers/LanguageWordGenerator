@@ -35,4 +35,7 @@ public class EnglishLanguageGenerator extends LanguageGenerator {
         //Ending Letter Favorabilities
         wordEndFavorabilities = new Frequency(wordEndFav);
 	}
+
+	@Override
+    public void postProcessWord(String[] word) { }
 }
