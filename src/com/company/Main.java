@@ -15,7 +15,7 @@ public class Main {
 
 
         //Instantiate language object
-        Language language = new Language(new CustomLanguageGenerator());
+        Language language = new Language(new KazanLanguageGenerator());
 
         //Generate words
         for (int i = 0; i < wordsToGenerate; i++) {

@@ -159,6 +159,26 @@ public class Language {
 			}
 		}
 
+		//Replace double consonants with something other consonant
+
+		//Main body pass
+		for (int i = 1; i < toAnalyzeStrA.length - 1; i++) {
+			if (Language.arrayContains(consonantA, toAnalyzeStrA[i])
+					&& toAnalyzeStrA[i].equals(toAnalyzeStrA[i - 1])) {
+				do {
+					toAnalyzeStrA[i] = (String) constants.chooseRandomItem();
+				} while (toAnalyzeStrA[i].equals(toAnalyzeStrA[i - 1]));
+			}
+        }
+
+		//Last character avoidance pass
+		if (toAnalyzeStrA.length > 2 && arrayContains(consonantA, toAnalyzeStrA[toAnalyzeStrA.length - 1])
+				&& toAnalyzeStrA[toAnalyzeStrA.length - 1].equals(toAnalyzeStrA[toAnalyzeStrA.length - 2])) {
+			do {
+				toAnalyzeStrA[toAnalyzeStrA.length - 2] = (String) constants.chooseRandomItem();
+			} while (toAnalyzeStrA[toAnalyzeStrA.length - 2].equals(toAnalyzeStrA[toAnalyzeStrA.length - 1]));
+		}
+
         return false;
     }
 

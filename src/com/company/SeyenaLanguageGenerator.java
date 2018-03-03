@@ -2,12 +2,12 @@ package com.company;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-class CustomLanguageGenerator extends LanguageGenerator {
+class SeyenaLanguageGenerator extends LanguageGenerator {
 
      private int chanceForVerb;
      private Frequency verbEndings;
 
-     CustomLanguageGenerator() {
+     SeyenaLanguageGenerator() {
 
 	    //Data Arrays
 
@@ -27,11 +27,11 @@ class CustomLanguageGenerator extends LanguageGenerator {
         //Preference chances (0 to 1 chance)
 
 
-        firstPreferChance = .5; //Chance for start pref to be chosen
+        firstPreferChance = 0.5; //Chance for start pref to be chosen
         lastPreferChance = 0.8; //Chance for end pref to be chosen
 
 
-        chanceForVerb = 15; //Chance for the ending to be verb-like
+        chanceForVerb = 30; //Chance for the ending to be verb-like
 
 
         //Frequency objects (Uses above data, not customizable)
@@ -52,26 +52,6 @@ class CustomLanguageGenerator extends LanguageGenerator {
 
 	@Override
     public void postProcessWord(String[] word) {
-
-         //Change double consonants to different consonants
-         String[] consonantArray = (String[]) constants.getItems();
-
-         //Main body pass
-         for (int i = 1; i < word.length - 1; i++) {
-             if (Language.arrayContains(consonantArray, word[i]) && word[i].equals(word[i - 1])) {
-                 do {
-                     word[i] = (String) constants.chooseRandomItem();
-                 } while (word[i].equals(word[i - 1]));
-             }
-         }
-         //Last character avoidance pass
-         if (word.length > 2 && Language.arrayContains(consonantArray, word[word.length - 1]) && word[word.length - 1].equals(word[word.length - 2])) {
-             do {
-                 word[word.length - 2] = (String) constants.chooseRandomItem();
-             } while (word[word.length - 2].equals(word[word.length - 1]));
-         }
-
-
          //Chance to make a verb
          if (word.length > 2 && ThreadLocalRandom.current().nextInt(100) < chanceForVerb) {
              word[word.length - 1] = (String) verbEndings.chooseRandomItem();
