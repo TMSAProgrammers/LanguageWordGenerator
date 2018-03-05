@@ -12,23 +12,23 @@ class SeyenaLanguageGenerator extends LanguageGenerator {
 	    //Data Arrays
 
 
-        String[] consonantsA = new String[] {"n", "g", "k", "l", "ş", "v", "d", "r", "m", "h", "w", "ç", "b", "z", "f", "c", "j", "p"};
-        String[] vowelsA = new String[] {"a", "i", "e", "u", "o", "y"};
-        String[] wordStartFav = new String[] {"d", "k", "j", "i", "t", "v", "ş", "e", "b", "c", "l", "f"};
-        String[] wordEndFav = new String[] {"n", "k", "t", "r", "c", "m", "a", "d"};
-        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "şş", "çç", "gj", "gb", "pz", "kp", "kg", "gk", "dg", "gd", "dk", "kd", "dp"};
+        String[] consonantsA = new String[] {"m", "p", "v", "f", "r", "l", "b", "x", "w", "g", "n", "q", "j", "z", "d", "h"};
+        String[] vowelsA = new String[] {"e", "o", "i", "y", "a", "u"};
+        String[] wordStartFav = new String[] {"w", "b", "p", "s", "f", "m", "y", "l"};
+        String[] wordEndFav = new String[] {"a", "e", "i", "u", "o", "y"};
+        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "gj", "gb", "pz", "qp", "qg", "gq", "dg", "gd", "dq", "qd", "dp"};
 
-        String[] verbEndingsA = new String[] {"am", "ur", "ez"};
+        String[] verbEndingsA = new String[] {"fa", "to", "ri"};
 
-        wordLengthDistribution = new int[] {2, 3, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9};
-        vowelFrequencyDistribution = new double[] {0.33, 0.44, 0.44, 0.44, 0.55, 0.55};
+        wordLengthDistribution = new int[] {2, 3, 4, 4, 4, 5, 5, 5, 6, 7, 7, 8, 9};
+        vowelFrequencyDistribution = new double[] {0.44, 0.44, 0.55, 0.55, 0.55, 0.66, 0.66};
 
 
         //Preference chances (0 to 1 chance)
 
 
-        firstPreferChance = 0.5; //Chance for start pref to be chosen
-        lastPreferChance = 0.8; //Chance for end pref to be chosen
+        firstPreferChance = 0.8; //Chance for start pref to be chosen
+        lastPreferChance = 0.9; //Chance for end pref to be chosen
 
 
         chanceForVerb = 30; //Chance for the ending to be verb-like
