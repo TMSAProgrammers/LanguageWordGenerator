@@ -96,6 +96,8 @@ public class Language {
 		int ending = Math.max(2, word.length - 1); //Ending position to place a word
 		int tries; //Tries taken for one vowel placement
 
+        String[] vowA = (String[]) vowels.getItems();
+
 		for (int i = 0; i < vowelNumber; i++) {
 			tries = 0;
 			do {
@@ -107,9 +109,10 @@ public class Language {
 					break;
 				}
 			}
-			//Continue while position is occupied by a vowel
-			while (arrayContains(
-			        (String[]) vowels.getItems(), word[position]  ));
+			//Continue while position is occupied by a vowel (or possibly if the adjacents are also vowels)
+			while (arrayContains(vowA, word[position])
+                    && ((arrayContains(vowA, word[position - 1]) && arrayContains(vowA, word[position + 1]))
+                    || ThreadLocalRandom.current().nextInt(10) < 2));
 
 			//Choose a vowel to insert
 			String vowel = (String) vowels.chooseRandomItem();
@@ -146,24 +149,13 @@ public class Language {
             }
         }
 
-        //No triple consonant check
-		String[] consonantA = (String[]) constants.getItems();
-
-        for (int i = 0; i < toAnalyzeStrA.length - 2; i++) {
-			boolean inConsPos = arrayContains(consonantA, toAnalyzeStrA[i]);
-			boolean inConsPos2 = arrayContains(consonantA, toAnalyzeStrA[i + 1]);
-			boolean inConsPos3 = arrayContains(consonantA, toAnalyzeStrA[i + 2]);
-
-			if (inConsPos && inConsPos2 && inConsPos3) {
-				return true;
-			}
-		}
+        String[] vowelA = (String[]) vowels.getItems();
 
 		//Replace double consonants with something other consonant
 
 		//Main body pass
 		for (int i = 1; i < toAnalyzeStrA.length - 1; i++) {
-			if (Language.arrayContains(consonantA, toAnalyzeStrA[i])
+			if (!Language.arrayContains(vowelA, toAnalyzeStrA[i])
 					&& toAnalyzeStrA[i].equals(toAnalyzeStrA[i - 1])) {
 				do {
 					toAnalyzeStrA[i] = (String) constants.chooseRandomItem();
@@ -172,12 +164,23 @@ public class Language {
         }
 
 		//Last character avoidance pass
-		if (toAnalyzeStrA.length > 2 && arrayContains(consonantA, toAnalyzeStrA[toAnalyzeStrA.length - 1])
+		if (toAnalyzeStrA.length > 2 && !arrayContains(vowelA, toAnalyzeStrA[toAnalyzeStrA.length - 1])
 				&& toAnalyzeStrA[toAnalyzeStrA.length - 1].equals(toAnalyzeStrA[toAnalyzeStrA.length - 2])) {
 			do {
 				toAnalyzeStrA[toAnalyzeStrA.length - 2] = (String) constants.chooseRandomItem();
 			} while (toAnalyzeStrA[toAnalyzeStrA.length - 2].equals(toAnalyzeStrA[toAnalyzeStrA.length - 1]));
 		}
+
+        //No triple consonant check
+        for (int i = 0; i < toAnalyzeStrA.length - 2; i++) {
+            boolean isConsonant = !arrayContains(vowelA, toAnalyzeStrA[i]);
+            boolean isConsonant2 = !arrayContains(vowelA, toAnalyzeStrA[i + 1]);
+            boolean isConsonant3 = !arrayContains(vowelA, toAnalyzeStrA[i + 2]);
+
+            if (isConsonant && isConsonant2 && isConsonant3) {
+                return true;
+            }
+        }
 
         return false;
     }

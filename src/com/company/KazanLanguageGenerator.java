@@ -16,12 +16,12 @@ class KazanLanguageGenerator extends LanguageGenerator {
         String[] vowelsA = new String[] {"a", "i", "e", "u", "o", "y"};
         String[] wordStartFav = new String[] {"d", "k", "j", "i", "t", "v", "ş", "e", "b", "c", "l", "f"};
         String[] wordEndFav = new String[] {"n", "k", "t", "r", "c", "m", "a", "d"};
-        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "şş", "çç", "gj", "gb", "pz", "kp", "kg", "gk", "dg", "gd", "dk", "kd", "dp"};
+        forbiddenSequences = new String[] {"uu", "aa", "ii", "ee", "oo", "yy", "şş", "çç", "gj", "gb", "pz", "kp", "kg", "gk", "dg", "gd", "dk", "kd", "dp", "şc"};
 
         String[] verbEndingsA = new String[] {"am", "ur", "ez"};
 
-        wordLengthDistribution = new int[] {2, 3, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9};
-        vowelFrequencyDistribution = new double[] {0.33, 0.44, 0.44, 0.44, 0.55, 0.55};
+        wordLengthDistribution = new int[] {2, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 9};
+        vowelFrequencyDistribution = new double[] {0.33, 0.33, 0.44, 0.44, 0.44, 0.55};
 
 
         //Preference chances (0 to 1 chance)
